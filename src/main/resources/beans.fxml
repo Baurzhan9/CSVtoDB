@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-init-method="init"
+       default-destroy-method="destroy">
+    <bean id="SqlRequest" class="main.java.SqlRequest" scope="prototype">
+        <property name="SqlPath" value="C:/Users/user/Desktop/schema.sql"></property>
+        <property name="DatabaseConnection" ref="DatabaseConnection"/>
+    </bean>
+    <bean id="DatabaseConnection" class="main.java.DatabaseConnection" scope="singleton" >
+        <property name="dbUrl" value="jdbc:mysql://localhost:3306/csv?serverTimezone=UTC"/>
+        <property name="dbUsername" value="root"/>
+        <property name="dbPassword" value="root"/>
+    </bean>
+    <bean id="ScanCSV" class="main.java.ScanCSV" scope="prototype">
+        <property name="CsvPath" value="C:/Users/user/Desktop/sales.csv"></property>
+        <property name="split" value=","></property>
+        <property name="request" ref="SqlRequest"></property>
+        <property name="DatabaseConnection" ref="DatabaseConnection"/>
+    </bean>
+
+</beans>
